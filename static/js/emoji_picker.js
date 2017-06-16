@@ -141,6 +141,13 @@ exports.toggle_emoji_popover = function (element, id) {
         exports.render_emoji_show_list();
         complete_emoji_list = $('.emoji-popover-emoji').toArray();
     }
+
+    // Maintain text field focus on tab swtich
+    $('.emoji-popover a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        setTimeout(function () {
+            $(e.target.getAttribute("href") + "-field").focus();
+        }, 0);
+    });
 };
 
 exports.reactions_popped = function () {
@@ -253,6 +260,18 @@ function maybe_select_emoji(e) {
                 reactions.toggle_emoji_reaction(current_msg_list.selected_id(), first_emoji.title);
             }
         }
+    }
+}
+
+function handle_text_reaction(e) {
+    if (e.keyCode === 13) { // enter key
+        e.preventDefault();
+        var text = $(this).val();
+        if (text.trim() === '') {
+            return;
+        }
+        var message_id = $(this).parent().attr('data-message-id');
+        text_reactions.toggle_reaction(message_id, text);
     }
 }
 
@@ -383,7 +402,7 @@ exports.register_click_handlers = function () {
 
     $(document).on('input', '.emoji-popover-filter', filter_emojis);
     $(document).on('keydown', '.emoji-popover-filter', maybe_select_emoji);
-
+    $(document).on('keydown', '#text-reaction-tab-field', handle_text_reaction);
 };
 
 exports.is_composition = function (emoji) {

@@ -180,3 +180,12 @@
     margin: 0px 1px 0px 0px;
     line-height: 1em;
 }
+
+#reaction-type-selector {
+    margin-bottom: 12px;
+}
+
+#text-reaction-tab-field {
+    width: calc(100% - 14px);
+    margin: auto;
+}

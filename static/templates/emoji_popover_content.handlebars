@@ -1,31 +1,50 @@
 <div class="emoji-popover">
-    <div class="emoji-popover-top">
-        <input class="emoji-popover-filter" type="text" autofocus placeholder={{t 'Search' }} />
-        <i class="icon-vector-search"></i>
-    </div>
-    {{#if message_id}} {{! message_id -> message reaction, no message_id -> message composition }}
-    <div class="emoji-popover-emoji-map" data-message-id="{{message_id}}">
-        {{#each emojis}}
-        <div class="emoji-popover-emoji {{#if has_reacted}} reacted {{/if}} reaction" title={{name}} tabindex="0">
-            {{#if is_realm_emoji}}
-            <img src="{{url}}" class="emoji" title= ":{{name}}:" />
-            {{else}}
-            <div class="emoji emoji-{{css_class}}" title= ":{{name}}:" />
-            {{/if}}
-        </div>
-        {{/each}}
-    </div>
-    {{else}}
-    <div class="emoji-popover-emoji-map">
-        {{#each emojis}}
-        <div class="emoji-popover-emoji composition" title={{name}} tabindex="0">
-            {{#if is_realm_emoji}}
-            <img src="{{url}}" class="emoji" title= ":{{name}}:" />
-            {{else}}
-            <div class="emoji emoji-{{css_class}}" title= ":{{name}}:" />
-            {{/if}}
-        </div>
-        {{/each}}
-    </div>
+    {{# if message_id}}
+    <ul class="nav nav-tabs" id="reaction-type-selector">
+        <li class="active"><a id="switch-emoji-tab" data-toggle="tab" href="#emoji-tab">Emoji</a></li>
+        <li><a id="switch-text-reaction-tab" data-toggle="tab" href="#text-reaction-tab">Custom text</a></li>
+    </ul>
     {{/if}}
+    <div class="tab-content">
+        <div id="emoji-tab" class="tab-pane active">
+            <div class="emoji-popover-top">
+                <input id="emoji-tab-field" class="emoji-popover-filter" type="text" autofocus placeholder={{t 'Search' }} />
+                <i class="icon-vector-search"></i>
+            </div>
+            {{#if message_id}} {{! message_id -> message reaction, no message_id -> message composition }}
+            <div class="emoji-popover-emoji-map" data-message-id="{{message_id}}">
+                {{#each emojis}}
+                <div class="emoji-popover-emoji {{#if has_reacted}} reacted {{/if}} reaction" title={{name}} tabindex="0">
+                    {{#if is_realm_emoji}}
+                    <img src="{{url}}" class="emoji" title= ":{{name}}:" />
+                    {{else}}
+                    <div class="emoji emoji-{{css_class}}" title= ":{{name}}:" />
+                    {{/if}}
+                </div>
+                {{/each}}
+            </div>
+            {{else}}
+            <div class="emoji-popover-emoji-map">
+                {{#each emojis}}
+                <div class="emoji-popover-emoji composition" title={{name}} tabindex="0">
+                    {{#if is_realm_emoji}}
+                    <img src="{{url}}" class="emoji" title= ":{{name}}:" />
+                    {{else}}
+                    <div class="emoji emoji-{{css_class}}" title= ":{{name}}:" />
+                    {{/if}}
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
+        </div>
+        {{#if message_id}} {{! message_id -> message reaction, no message_id -> message composition }}
+        <div id="text-reaction-tab" class="tab-pane">
+            <div class="emoji-popover-top" data-message-id="{{message_id}}">
+                <input id="text-reaction-tab-field" class="text-reaction-input" type="text" maxlength="32" placeholder="{{t 'Enter custom text' }}" />
+            </div>
+            <div style="height: 16.5em; margin-top: 23px;">
+            </div>
+        </div>
+        {{/if}}
+    </div>
 </div>
