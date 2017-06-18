@@ -187,7 +187,8 @@ exports.insert_new_reaction = function (event, user_list) {
     } else {
         event.class = "message_reaction";
     }
-
+    event.is_text = true;
+    event.text = "Text reaction of " + event.emoji_name;
     var new_reaction = $(templates.render('message_reaction', event));
 
     // Now insert it before the add button.

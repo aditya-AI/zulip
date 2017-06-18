@@ -189,3 +189,8 @@
     width: calc(100% - 14px);
     margin: auto;
 }
+
+.text-reaction-text {
+    padding-left: 5px;
+    padding-right: 2px;
+}
